@@ -1,17 +1,8 @@
 (ns gitwellsoon.github
   (:require [tentacles.repos       :as repos]
-            [environ.core          :refer [env]]
             [clojure.string        :as str]
             [clojure.core.async    :as async :refer [go chan <!! <! >!]]
             [gitwellsoon.code-maat :as maat]))
-
-;; reading from environment via environ. This gets filled by
-;; environment variables and the .lein-env file.
-
-(def username (env :gituser))
-(def password (env :gitpassword))
-
-(def opts {:auth (str username ":" password)})
 
 ;; One of Clojures mechanisms for polymorphism.  Protocols are like
 ;; interfaces, only much more useful, since you can implement them for
@@ -26,14 +17,15 @@
 ;; like a simple, immutable value class in Java.  This one doesn't
 ;; have any fields, it only implements the CommitSource protocol.
 
-(defrecord GithubConnector []
+(defrecord GithubConnector [opts]
   CommitSource
   (get-commits [_ user repo]
     (repos/commits user repo opts))
   (get-commit [_ user repo sha]
     (repos/specific-commit user repo sha opts)))
 
-(def github (GithubConnector.))
+(defn github [opts]
+  (GithubConnector. opts))
 
 (defn summarize-commit [commit-info]
   (let [{:keys [commit files sha]} commit-info ; destructure the commit info

@@ -9,8 +9,11 @@
 (defn get-authors [data]
   (cm/run-analysis :authors data))
 
-(defn get-data-for [user repo]
-  (<!! (a/into [] (gh/download-changelist gh/github user repo))))
+(defn get-data-for [source user repo]
+  (<!! (a/into [] (gh/download-changelist source user repo))))
 
-(defn get-data-async [user repo]
-  (gh/download-changelist gh/github user repo))
+(defn github-connector [opts]
+  (gh/github opts))
+
+(defn get-data-async [source user repo]
+  (gh/download-changelist source user repo))

@@ -1,7 +1,7 @@
 ## Gitwellsoon
 
 A Clojure library designed to make code-maat accessible as a library
-and provide a simple way to fill it with data from github.
+and provide a simple way to fill it with data from github or a local git repository.
 
 ## Usage
 

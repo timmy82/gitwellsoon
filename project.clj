@@ -9,4 +9,5 @@
                  [tentacles "0.5.1"]
                  [environ "1.0.3"]
                  [org.clojure/core.async "0.2.385"]
-                 [clj-http "3.3.0"]])
+                 [clj-http "3.3.0"]
+                 [clj-jgit "0.8.9"]])

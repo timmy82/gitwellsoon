@@ -50,6 +50,10 @@
   (-> (read-git-log path)
       (to-log-entries)))
 
+(defn get-git-logs [paths]
+  "reads the git log of each path"
+  (reduce (fn [v path] (get-git-log path)) [] paths))
+
 (defn get-git-log-async [path]
   "creates a go routine that writes the log into a channel and returns it"
   (let [git-log-channel (chan)]
@@ -59,4 +63,4 @@
 
 (defn get-git-logs-async [paths]
   "creates a go routine for each path and collects the result into a vector"
-  (<!! (async/into [] (reduce (fn [v path] (get-git-log-async path)) [] paths))))
+  (reduce (fn [v path] (get-git-log-async path)) [] paths))

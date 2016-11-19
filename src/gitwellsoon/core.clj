@@ -21,3 +21,10 @@
 
 (defn get-local-git-log [path]
   (gl/get-git-log path))
+
+(defn get-local-git-logs [paths]
+  (gl/get-git-logs paths))
+
+(defn get-local-git-logs-async [paths]
+  (<!! (a/into [] (gl/get-git-logs-async paths))))
+

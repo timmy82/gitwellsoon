@@ -49,3 +49,22 @@
   "reads the git log of the repository located at PATH"
   (-> (read-git-log path)
       (to-log-entries)))
+
+(defn create-git-log-channel [] 
+  "creates a channel with buffer size 1"
+  (chan 1))
+
+(defn get-git-log-async [path]
+  "creates a go routine that writes the log into a channel and returns it"
+  (let [git-log-channel create-git-log-channel]
+    (go (>! git-log-channel (get-git-log path))
+        (close! git-log-channel))
+    git-log-channel))
+
+(defn get-git-logs-async [paths]
+  "creates a go routine for each path and collects the result into a vector."
+  (<!! (async/into [] (reduce (fn [v path] (get-git-log-async path)) [] paths))))
+
+
+
+

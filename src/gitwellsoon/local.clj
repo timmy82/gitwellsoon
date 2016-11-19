@@ -52,7 +52,7 @@
 
 (defn get-git-log-async [path]
   "creates a go routine that writes the log into a channel and returns it"
-  (let [git-log-channel chan]
+  (let [git-log-channel (chan)]
     (go (>! git-log-channel (get-git-log path))
         (close! git-log-channel))
     git-log-channel))

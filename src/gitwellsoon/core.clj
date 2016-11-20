@@ -19,12 +19,12 @@
 (defn get-data-async [source user repo]
   (gh/download-changelist source user repo))
 
-(defn get-local-git-log [path]
-  (gl/get-git-log path))
+(defn get-local-git-log [project]
+  (gl/get-git-log project))
 
-(defn get-local-git-logs [paths]
-  (gl/get-git-logs paths))
+(defn get-local-git-logs [projects]
+  (gl/get-git-logs projects))
 
-(defn get-local-git-logs-async [paths]
-  (<!! (a/into [] (gl/get-git-logs-async paths))))
+(defn get-local-git-logs-async [projects]
+  (<!! (a/into [] (gl/get-git-logs-async projects))))
 

@@ -26,5 +26,7 @@
   (gl/get-git-logs projects))
 
 (defn get-local-git-logs-async [projects]
-  (<!! (a/into [] (gl/get-git-logs-async projects))))
+  (gl/get-git-logs-async projects))
 
+(defn get-local-git-log-async [project]
+  (<!! (gl/get-git-log-async project)))
